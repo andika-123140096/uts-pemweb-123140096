@@ -1,6 +1,17 @@
 import PropTypes from "prop-types";
+import { useReadingListContext } from "../contexts/ReadingListContext";
 
-const SearchResultTable = ({ books, onViewDetails, onAddToFavorite }) => {
+const SearchResultTable = ({ books, onViewDetails }) => {
+  const { addBook, removeBook, isBookSaved } = useReadingListContext();
+
+  const handleToggleSave = (book) => {
+    if (isBookSaved(book.key)) {
+      removeBook(book.key);
+    } else {
+      addBook(book);
+    }
+  };
+
   return (
     <div className="mx-4 rounded-lg bg-white/90 p-6 shadow-lg backdrop-blur-md">
       <h2 className="mb-4 text-lg font-semibold">Search Results</h2>
@@ -49,10 +60,16 @@ const SearchResultTable = ({ books, onViewDetails, onAddToFavorite }) => {
                       View Details
                     </button>
                     <button
-                      onClick={() => onAddToFavorite(book)}
-                      className="w-full rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+                      onClick={() => handleToggleSave(book)}
+                      className={`w-full rounded px-4 py-2 text-white ${
+                        isBookSaved(book.key)
+                          ? "bg-red-500 hover:bg-red-600"
+                          : "bg-green-500 hover:bg-green-600"
+                      }`}
                     >
-                      Add to Favorite
+                      {isBookSaved(book.key)
+                        ? "Remove from Reading List"
+                        : "Add to Reading List"}
                     </button>
                   </div>
                 </td>
@@ -76,7 +93,6 @@ SearchResultTable.propTypes = {
     })
   ).isRequired,
   onViewDetails: PropTypes.func.isRequired,
-  onAddToFavorite: PropTypes.func.isRequired,
 };
 
 export default SearchResultTable;
