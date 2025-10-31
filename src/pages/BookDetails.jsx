@@ -1,54 +1,16 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
 import useBookDetails from "../hooks/useBookDetails";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const BookDetails = () => {
   const { workKey } = useParams();
-  const { bookDetails, loading, error } = useBookDetails(workKey);
-  const [authorsNames, setAuthorsNames] = useState([]);
-
-  useEffect(() => {
-    if (bookDetails?.authors) {
-      const fetchAuthors = async () => {
-        const names = await Promise.all(
-          bookDetails.authors.map(async (author) => {
-            if (author.author?.key) {
-              const authorKey = author.author.key.split("/").pop();
-              try {
-                const response = await fetch(
-                  `https://openlibrary.org/authors/${authorKey}.json`
-                );
-                const data = await response.json();
-                return data.name || "Unknown";
-              } catch {
-                return "Unknown";
-              }
-            }
-            return "Unknown";
-          })
-        );
-        setAuthorsNames(names);
-      };
-      fetchAuthors();
-    }
-  }, [bookDetails]);
+  const { bookDetails, loading, error, authorsNames, parsedDescription, coverUrl } = useBookDetails(workKey);
 
   if (loading) return <LoadingSpinner />;
   if (error) return <p>Error: {error}</p>;
   if (!bookDetails) return <p>No details found.</p>;
 
-  const coverUrl =
-    bookDetails.covers && bookDetails.covers.length > 0
-      ? `https://covers.openlibrary.org/b/id/${bookDetails.covers[0]}-L.jpg`
-      : "https://placehold.co/600x400";
-
   const authors = authorsNames.join(", ") || "Unknown";
-  const description = (
-    typeof bookDetails.description === "string"
-      ? bookDetails.description
-      : bookDetails.description?.value || "No description available."
-  ).replace(/\s*\(\[source\]\[1\]\)\s*----------.*$/s, "");
 
   const readLink = `https://openlibrary.org/works/${workKey}`;
 
@@ -69,7 +31,7 @@ const BookDetails = () => {
           </p>
           <div className="mb-4">
             <h2 className="mb-2 text-xl font-semibold">Description</h2>
-            <p className="mb-4 text-gray-700">{description}</p>
+            <p className="mb-4 text-gray-700">{parsedDescription}</p>
           </div>
           <div className="mb-4">
             <h2 className="mb-2 text-xl font-semibold">Subjects</h2>
