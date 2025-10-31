@@ -3,7 +3,7 @@ import { Home, Search, BookOpen } from "lucide-react";
 
 const BottomNavbar = () => {
   return (
-    <nav className="fixed right-0 bottom-0 left-0 mx-4 mb-4 rounded-t-lg border-t border-gray-200/50 bg-white/90 p-4 shadow-lg backdrop-blur-md">
+    <nav className="fixed right-0 bottom-0 left-0 mx-8 mb-4 rounded-lg bg-white/90 p-4 shadow-lg backdrop-blur-md">
       <div className="flex justify-around">
         <NavLink
           to="/"
