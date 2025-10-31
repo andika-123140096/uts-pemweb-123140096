@@ -41,14 +41,14 @@ const BookDetails = () => {
   const coverUrl =
     bookDetails.covers && bookDetails.covers.length > 0
       ? `https://covers.openlibrary.org/b/id/${bookDetails.covers[0]}-L.jpg`
-      : "https://via.placeholder.com/300";
+      : "https://placehold.co/600x400";
 
   const authors = authorsNames.join(", ") || "Unknown";
   const description = (
     typeof bookDetails.description === "string"
       ? bookDetails.description
       : bookDetails.description?.value || "No description available."
-  ).replace(/\s*\(\[source\]\[1\]\)\s*----------\s*See also:.*$/s, "");
+  ).replace(/\s*\(\[source\]\[1\]\)\s*----------.*$/s, "");
 
   const readLink = `https://openlibrary.org/works/${workKey}`;
 

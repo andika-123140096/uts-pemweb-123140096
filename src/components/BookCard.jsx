@@ -1,10 +1,10 @@
 const BookCard = ({ cover, title, onViewDetails, onRemove }) => {
   return (
-    <div className="m-1 rounded-lg bg-white p-2 shadow-md">
+    <div className="m-1 flex min-h-80 flex-col justify-between rounded-lg bg-white p-2 shadow-md">
       <img
         src={cover}
         alt={title}
-        className="mb-1 h-96 w-full rounded-t-md object-fill"
+        className="mx-auto mb-1 h-72 w-48 rounded-t-md object-fill md:h-96 md:w-full"
       />
       <h2 className="mb-2 text-lg font-semibold">{title}</h2>
       <div className="flex flex-col space-y-2">

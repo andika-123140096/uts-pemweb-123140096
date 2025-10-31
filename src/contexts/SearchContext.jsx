@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
+import useBookSearch from "../hooks/useBookSearch";
 
 const SearchContext = createContext();
 
@@ -20,9 +21,15 @@ export const SearchProvider = ({ children }) => {
     subject: "",
   });
   const [limit, setLimit] = useState(10);
+  const [offset, setOffset] = useState(0);
   const [searchTriggered, setSearchTriggered] = useState(false);
-  const [localBooks, setLocalBooks] = useState([]);
-  const [loading, setLoading] = useState(false);
+
+  const { books, total, loading, error } = useBookSearch(
+    searchCriteria,
+    limit,
+    offset,
+    searchTriggered
+  );
 
   return (
     <SearchContext.Provider
@@ -31,12 +38,14 @@ export const SearchProvider = ({ children }) => {
         setSearchCriteria,
         limit,
         setLimit,
+        offset,
+        setOffset,
         searchTriggered,
         setSearchTriggered,
-        localBooks,
-        setLocalBooks,
+        books,
+        total,
         loading,
-        setLoading,
+        error,
       }}
     >
       {children}

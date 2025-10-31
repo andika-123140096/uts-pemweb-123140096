@@ -37,7 +37,11 @@ const SearchResultTable = ({ books, onViewDetails }) => {
                       className="mx-auto h-80 w-64 rounded-md shadow-md"
                     />
                   ) : (
-                    <span className="text-gray-500">No Cover</span>
+                    <img
+                      src="https://placehold.co/400x600"
+                      alt="No Cover"
+                      className="mx-auto h-80 w-64 rounded-md shadow-md"
+                    />
                   )}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
