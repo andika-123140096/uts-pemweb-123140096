@@ -10,7 +10,7 @@ const normalizeBooks = (docs) => {
     year: book.first_publish_year || "",
     coverUrl: book.cover_i
       ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
-      : "",
+      : "https://placehold.co/400x600",
     key: book.key || "",
   }));
 };

@@ -30,19 +30,11 @@ const SearchResultTable = ({ books, onViewDetails }) => {
             {books.map((book, index) => (
               <tr key={book.key || index} className="hover:bg-gray-50">
                 <td className="border border-gray-300 px-4 py-2 text-center">
-                  {book.coverUrl ? (
-                    <img
-                      src={book.coverUrl}
-                      alt={book.title}
-                      className="mx-auto h-80 w-64 rounded-md shadow-md"
-                    />
-                  ) : (
-                    <img
-                      src="https://placehold.co/400x600"
-                      alt="No Cover"
-                      className="mx-auto h-80 w-64 rounded-md shadow-md"
-                    />
-                  )}
+                  <img
+                    src={book.coverUrl}
+                    alt={book.title}
+                    className="mx-auto h-80 w-64 rounded-md shadow-md"
+                  />
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   {book.title}
